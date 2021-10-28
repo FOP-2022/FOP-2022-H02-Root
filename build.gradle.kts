@@ -11,11 +11,14 @@ allprojects {
     implementation("org.sourcegrade:fopbot:0.1.0-SNAPSHOT")
   }
   java {
-    withSourcesJar()
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+    withSourcesJar()
   }
   tasks {
+    withType<JavaCompile> {
+      options.encoding = "UTF-8"
+    }
     jar {
       archiveFileName.set("${rootProject.name}-${project.name}.jar")
     }
