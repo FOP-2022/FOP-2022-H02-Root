@@ -7,8 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,6 +39,10 @@ public class TutorTests {
   @Test
   @DisplayName("H1_T3: paces initialized correctly (correct length according to allRobots, filled with integers from [1...5])")
   public void testInitPaces() {
+    ThreadLocalRandomTester.initializeOriginal();
+
+    int[] paces = null;
+
     World.setSize(6, 6);
     Robot[] allRobots = new Robot[]{
       new Robot(0, 0, Direction.UP, 1000),
@@ -48,8 +52,14 @@ public class TutorTests {
       new Robot(4, 4, Direction.UP, 1000),
       new Robot(5, 5, Direction.UP, 1000),
     };
-    int[] paces = Main.initializePaces(allRobots);
-    assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
+    List<Integer> numbers = new LinkedList<>();
+    for (int i=0; i < 10; i++) {                    // to maximize chance of detecting wrong item
+                                                    // detecting a false negative is very unlikely, but theoretically possible
+      paces = Main.initializePaces(allRobots);
+      numbers.addAll(Arrays.stream(paces).boxed().collect(Collectors.toList()));
+      assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
+    }
+    assertTrue(containsAllInterval(numbers));
 
     World.setSize(3, 3);
     allRobots = new Robot[]{
@@ -57,15 +67,30 @@ public class TutorTests {
       new Robot(1, 1, Direction.UP, 1000),
       new Robot(2, 2, Direction.UP, 1000)
     };
-    paces = Main.initializePaces(allRobots);
-    assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
+    numbers = new LinkedList<>();
+    for (int i=0; i < 20; i++) {
+      paces = Main.initializePaces(allRobots);
+      numbers.addAll(Arrays.stream(paces).boxed().collect(Collectors.toList()));
+      assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
+    }
+    assertTrue(containsAllInterval(numbers));
 
     World.setSize(1, 1);
     allRobots = new Robot[]{
       new Robot(0, 0, Direction.UP, 1000)
     };
-    paces = Main.initializePaces(allRobots);
-    assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
+    numbers = new LinkedList<>();
+    for (int i=0; i < 30; i++) {
+      paces = Main.initializePaces(allRobots);
+      numbers.addAll(Arrays.stream(paces).boxed().collect(Collectors.toList()));
+      assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
+    }
+    assertTrue(containsAllInterval(numbers));
+    ThreadLocalRandomTester.removeCurrentTester();
+  }
+
+  public static boolean containsAllInterval(List<Integer> numbers) {
+    return numbers.contains(1) && numbers.contains(2) && numbers.contains(3) && numbers.contains(4) && numbers.contains(5);
   }
 
   // ----------------------------- H3.1 --------------------------------
