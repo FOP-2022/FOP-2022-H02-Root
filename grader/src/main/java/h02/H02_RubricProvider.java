@@ -1,6 +1,10 @@
 package h02;
 
 import org.sourcegrade.jagr.api.rubric.*;
+import org.sourcegrade.jagr.api.testing.ClassTransformer;
+import org.sourcegrade.jagr.api.testing.RubricConfiguration;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 @RubricForSubmission("h02")
 public class H02_RubricProvider implements RubricProvider {
@@ -92,7 +96,7 @@ public class H02_RubricProvider implements RubricProvider {
   public static final Criterion H3_2_M1 = Criterion.builder()
       .shortDescription("H3_2_M1: Es wird geeignet geprüft, ob noch mindestens drei Elemente in allRobots vorhanden sind. Außerdem wird paces korrekt geupdated (Aufruf von swapPaces).")
       .build();
-  
+
   public static final Criterion H3_2_T1 = Criterion.builder()
     .shortDescription("H3_2_T1: generateThreeDistinctInts funktioniert korrekt. Es werden drei distinkte natürliche Zufallszahlen i1, i2, i3 im Intervall [0, allRobots.length-1] erstellt.")
     .grader(
@@ -172,5 +176,10 @@ public class H02_RubricProvider implements RubricProvider {
   @Override
   public Rubric getRubric() {
     return RUBRIC;
+  }
+
+  @Override
+  public void configure(RubricConfiguration configuration) {
+    configuration.addTransformer(ClassTransformer.replacement(ThreadLocalRandom02Tester.class, ThreadLocalRandom.class));
   }
 }
