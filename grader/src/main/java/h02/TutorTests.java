@@ -169,7 +169,7 @@ public class TutorTests {
       };
     int[] d = Main.generateThreeDistinctInts(r);
     assertTrueGenDist(r, d);
-    
+
     World.setSize(7, 7);
     Robot[] s = new Robot[]{
         new Robot(3, 4, Direction.UP, 0),
@@ -187,7 +187,7 @@ public class TutorTests {
       };
     int[] e = Main.generateThreeDistinctInts(s);
     assertTrueGenDist(s, e);
-    
+
     World.setSize(5, 5);
     Robot[] t = new Robot[]{
         new Robot(3, 4, Direction.UP, 0),
@@ -197,13 +197,13 @@ public class TutorTests {
     int[] f = Main.generateThreeDistinctInts(t);
     assertTrueGenDist(t, f);
   }
-  
+
   private void assertTrueGenDist(Robot[] r, int[] d) {
     assertTrue(correctInterval(d, r.length));
     assertTrue(distinctNumbers(d));
     assertTrue(d.length==3);
   }
-  
+
   @Test
   @DisplayName("H3_2_T2: orderThreeInts correct")
   public void testOrderThreeInts() {
@@ -237,30 +237,23 @@ public class TutorTests {
     int c = 4;
     int[] beforeArr = new int[]{14, 25, 676, 2, 9, 15, 67};
     int[] afterArr = new int[]{2, 25, 676, 9, 14, 15, 67};
-    Main.swapPaces(beforeArr, a, b, c);
-    assertTrue(isIntegerArrayEqual(afterArr, beforeArr));
-    beforeArr = new int[]{14, 25, 676, 2, 9, 15, 67};
-    Main.swapPaces(beforeArr, b, a, c);
-    assertTrue(isIntegerArrayEqual(afterArr, beforeArr));
-    beforeArr = new int[]{14, 25, 676, 2, 9, 15, 67};
-    Main.swapPaces(beforeArr, c, a, b);
-    assertTrue(isIntegerArrayEqual(afterArr, beforeArr));
+    assertTrue(isIntegerArrayEqual(afterArr, Main.swapPaces(beforeArr, a, b, c)));
+    assertTrue(isIntegerArrayEqual(afterArr, Main.swapPaces(beforeArr, a, c, b)));
+    assertTrue(isIntegerArrayEqual(afterArr, Main.swapPaces(beforeArr, b, c, a)));
 
     a = 0;
     b = 3;
     c = 1;
     beforeArr = new int[]{1, 2, 3, 4};
     afterArr = new int[]{1, 2, 3, 4};
-    Main.swapPaces(beforeArr, a, b, c);
-    assertTrue(isIntegerArrayEqual(afterArr, beforeArr));
+    assertTrue(isIntegerArrayEqual(afterArr, Main.swapPaces(beforeArr, a, b, c)));
 
     a = 2;
     b = 1;
     c = 0;
     beforeArr = new int[]{41, 12, 33, 4};
     afterArr = new int[]{12, 33, 41, 4};
-    Main.swapPaces(beforeArr, a, b, c);
-    assertTrue(isIntegerArrayEqual(afterArr, beforeArr));
+    assertTrue(isIntegerArrayEqual(afterArr, Main.swapPaces(beforeArr, a, b, c)));
   }
 
   // ----------------------------- H3.3 --------------------------------
@@ -383,7 +376,7 @@ public class TutorTests {
     }
     return true;
   }
-  
+
   public static boolean correctInterval(int[] dist, int upperBound) {
     for(int i : dist) {
       if (i < 0 || i > upperBound - 1) {
@@ -392,12 +385,12 @@ public class TutorTests {
     }
     return true;
   }
-  
+
   public static boolean distinctNumbers(int[] dist) {
     if (dist[0] == dist[1] || dist[0] == dist[2] || dist[1] == dist[2]) {
       return false;
     }
     return true;
   }
-  
+
 }
