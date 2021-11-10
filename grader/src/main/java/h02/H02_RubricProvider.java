@@ -109,7 +109,7 @@ public class H02_RubricProvider implements RubricProvider {
     )
     .build();
 
-  public static final Criterion H3_2_T2 = Criterion.builder()      // old version
+  public static final Criterion H3_2_T2 = Criterion.builder()      
     .shortDescription("H3_2_T2: orderThreeInts ordnet in einem Array aus drei distinkten Integer diese aufsteigend nach der Größe und gibt das sortierte Array zurück.")
     .grader(
       Grader.testAwareBuilder()
