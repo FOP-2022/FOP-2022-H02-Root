@@ -182,7 +182,7 @@ public class TutorTests {
 
   @Test
   @DisplayName("Extra for manual testing: If H_3_2_T1 fails, you can use this method. If it doesn't fail, chances are pretty good that generateThreeDistinctInts is correct nonetheless.")      // old version, leave in file for manual testing
-  public void testGenerateThreeDistinctIntsManual() {
+  public void testGenerateThreeDistinctIntsManual() {           // for manual testing if testGenerateTreeDistinctInts (which is called by RubricProvider) fails
     World.setSize(7, 7);
     Robot[] r = new Robot[]{
       new Robot(3, 4, Direction.UP, 0),
@@ -230,7 +230,7 @@ public class TutorTests {
   }
 
   @Test
-  @DisplayName("H3_2_T1: generateThreeDistinctInts correct")         // new version
+  @DisplayName("H3_2_T1: generateThreeDistinctInts correct")         // version which is used by RubricProvider
   public void testGenerateThreeDistinctInts() {
     ThreadLocalRandomTester.removeCurrentTester();
 
@@ -263,7 +263,6 @@ public class TutorTests {
     };
     ThreadLocalRandomTester.initialize(new int[]{1, 6, 7, 8}, s.length);
     int[] e = Main.generateThreeDistinctInts(s);
-    //System.out.println(String.format("e = %s", java.util.Arrays.toString(e)));
     Arrays.sort(e);
     assertTrue(Arrays.equals(e, new int[] {1, 6, 7}));
     ThreadLocalRandomTester.removeCurrentTester();
@@ -286,7 +285,6 @@ public class TutorTests {
     ThreadLocalRandomTester.initialize(new int[]{7, 7, 4, 4, 3, 1}, t.length);
     int[] f = Main.generateThreeDistinctInts(t);
     Arrays.sort(f);
-    //System.out.println(String.format("f = %s", java.util.Arrays.toString(f)));
     assertTrue(Arrays.equals(f, new int[] {3, 4, 7}));
     ThreadLocalRandomTester.removeCurrentTester();
 
@@ -433,7 +431,6 @@ public class TutorTests {
     }
     for (int i = 0; i < robots1.length; i++) {
       if (!isBotEqualMove(robots1[i], robots2[i])) {
-        System.out.println(i);
         return false;
       }
     }

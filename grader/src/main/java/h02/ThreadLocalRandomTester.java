@@ -8,7 +8,6 @@ public class ThreadLocalRandomTester {
   private int allRobotsLength;
   private boolean replaceTester = false;
 
-  //private final HashMap<IntSeq, ThreadLocalSeq> usedRanges = new HashMap<>();
 
   public static void initialize(int[] sequence, int allRobotsLength) {
     factory.set(new ThreadLocalRandomTester(sequence, allRobotsLength));
@@ -35,7 +34,6 @@ public class ThreadLocalRandomTester {
    * Replaces {@link ThreadLocalRandom#current()}
    */
   public static ThreadLocalRandomTester current() {
-    //System.out.println(factory.get());
     return factory.get();
   }
 
@@ -46,20 +44,13 @@ public class ThreadLocalRandomTester {
    */
   public int nextInt(int a, int b) {
     if (replaceTester) {
-      //System.out.println(String.format("a = %o, b = %o", a, b));
       if (a != 0) {
-        //return (int) (-Integer.MAX_VALUE * Math.random());
         throw new IllegalArgumentException(String.format("First parameter of nextInt must be 0, bust received %o. Test manually if method is correct.", a));
       }
       if (b != allRobotsLength) {
         throw new IllegalArgumentException(String.format("Second parameter of nextInt must be allRobots.length (=%o), bust received %o. Test manually if method is correct.",
           this.allRobotsLength, b));
       }
-    /*
-    int i = threadLocalSeq.next();
-    System.out.println(i);
-    return i;
-    */
       return threadLocalSeq.next();
     }
     else { return ThreadLocalRandom.current().nextInt(a, b); }
@@ -83,7 +74,6 @@ public class ThreadLocalRandomTester {
    * Replaces {@link ThreadLocalRandom#nextInt()}
    */
   public int nextInt() {
-    // throw Exception?
     return nextInt(0, 200);
   }
 
