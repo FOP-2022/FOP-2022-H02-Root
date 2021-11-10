@@ -180,6 +180,6 @@ public class H02_RubricProvider implements RubricProvider {
 
   @Override
   public void configure(RubricConfiguration configuration) {
-    configuration.addTransformer(ClassTransformer.replacement(ThreadLocalRandom02Tester.class, ThreadLocalRandom.class));
+    configuration.addTransformer(ClassTransformer.replacement(ThreadLocalRandomTester.class, ThreadLocalRandom.class));
   }
 }
