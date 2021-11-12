@@ -1,8 +1,6 @@
 package h02;
 
-import fopbot.Direction;
-import fopbot.Robot;
-import fopbot.World;
+import fopbot.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
@@ -226,7 +224,7 @@ public class TutorTests {
   private void assertTrueGenDist(Robot[] r, int[] d) {
     assertTrue(correctInterval(d, r.length));
     assertTrue(distinctNumbers(d));
-    assertTrue(d.length==3);
+    assertTrue(d.length == 3);
   }
 
   @Test
@@ -311,7 +309,6 @@ public class TutorTests {
 
     ThreadLocalRandomTester.initializeOriginal();
   }
-
 
   @Test
   @DisplayName("H3_2_T2: orderThreeInts correct")
@@ -486,7 +483,7 @@ public class TutorTests {
   }
 
   public static boolean correctInterval(int[] dist, int upperBound) {
-    for(int i : dist) {
+    for (int i : dist) {
       if (i < 0 || i > upperBound - 1) {
         return false;
       }
@@ -495,10 +492,6 @@ public class TutorTests {
   }
 
   public static boolean distinctNumbers(int[] dist) {
-    if (dist[0] == dist[1] || dist[0] == dist[2] || dist[1] == dist[2]) {
-      return false;
-    }
-    return true;
+    return dist[0] != dist[1] && dist[0] != dist[2] && dist[1] != dist[2];
   }
-
 }
