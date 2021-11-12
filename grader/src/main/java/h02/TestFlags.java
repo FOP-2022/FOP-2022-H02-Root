@@ -1,8 +1,6 @@
 package h02;
 
-import fopbot.Direction;
-import fopbot.Robot;
-import fopbot.World;
+import fopbot.*;
 
 public class TestFlags {
   private static Robot[] allRobots1 = null;

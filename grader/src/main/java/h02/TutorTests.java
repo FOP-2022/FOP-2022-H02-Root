@@ -1,8 +1,6 @@
 package h02;
 
-import fopbot.Direction;
-import fopbot.Robot;
-import fopbot.World;
+import fopbot.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
@@ -160,50 +158,50 @@ public class TutorTests {
   public void testGenerateThreeDistinctInts() {
     World.setSize(7, 7);
     Robot[] r = new Robot[]{
-        new Robot(3, 4, Direction.UP, 0),
-        new Robot(3, 3, Direction.RIGHT, 0),
-        new Robot(0, 2, Direction.DOWN, 0),
-        new Robot(6, 2, Direction.DOWN, 0),
-        new Robot(4, 5, Direction.DOWN, 0),
-        new Robot(2, 3, Direction.DOWN, 0)
-      };
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0),
+      new Robot(6, 2, Direction.DOWN, 0),
+      new Robot(4, 5, Direction.DOWN, 0),
+      new Robot(2, 3, Direction.DOWN, 0)
+    };
     int[] d = Main.generateThreeDistinctInts(r);
     assertTrueGenDist(r, d);
-    
+
     World.setSize(7, 7);
     Robot[] s = new Robot[]{
-        new Robot(3, 4, Direction.UP, 0),
-        new Robot(3, 3, Direction.RIGHT, 0),
-        new Robot(0, 2, Direction.DOWN, 0),
-        new Robot(6, 2, Direction.DOWN, 0),
-        new Robot(4, 5, Direction.DOWN, 0),
-        new Robot(2, 3, Direction.DOWN, 0),
-        new Robot(3, 4, Direction.UP, 0),
-        new Robot(3, 3, Direction.RIGHT, 0),
-        new Robot(0, 2, Direction.DOWN, 0),
-        new Robot(6, 2, Direction.DOWN, 0),
-        new Robot(4, 5, Direction.DOWN, 0),
-        new Robot(2, 3, Direction.DOWN, 0)
-      };
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0),
+      new Robot(6, 2, Direction.DOWN, 0),
+      new Robot(4, 5, Direction.DOWN, 0),
+      new Robot(2, 3, Direction.DOWN, 0),
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0),
+      new Robot(6, 2, Direction.DOWN, 0),
+      new Robot(4, 5, Direction.DOWN, 0),
+      new Robot(2, 3, Direction.DOWN, 0)
+    };
     int[] e = Main.generateThreeDistinctInts(s);
     assertTrueGenDist(s, e);
-    
+
     World.setSize(5, 5);
     Robot[] t = new Robot[]{
-        new Robot(3, 4, Direction.UP, 0),
-        new Robot(3, 3, Direction.RIGHT, 0),
-        new Robot(0, 2, Direction.DOWN, 0)
-      };
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0)
+    };
     int[] f = Main.generateThreeDistinctInts(t);
     assertTrueGenDist(t, f);
   }
-  
+
   private void assertTrueGenDist(Robot[] r, int[] d) {
     assertTrue(correctInterval(d, r.length));
     assertTrue(distinctNumbers(d));
-    assertTrue(d.length==3);
+    assertTrue(d.length == 3);
   }
-  
+
   @Test
   @DisplayName("H3_2_T2: orderThreeInts correct")
   public void testOrderThreeInts() {
@@ -383,21 +381,17 @@ public class TutorTests {
     }
     return true;
   }
-  
+
   public static boolean correctInterval(int[] dist, int upperBound) {
-    for(int i : dist) {
+    for (int i : dist) {
       if (i < 0 || i > upperBound - 1) {
         return false;
       }
     }
     return true;
   }
-  
+
   public static boolean distinctNumbers(int[] dist) {
-    if (dist[0] == dist[1] || dist[0] == dist[2] || dist[1] == dist[2]) {
-      return false;
-    }
-    return true;
+    return dist[0] != dist[1] && dist[0] != dist[2] && dist[1] != dist[2];
   }
-  
 }
