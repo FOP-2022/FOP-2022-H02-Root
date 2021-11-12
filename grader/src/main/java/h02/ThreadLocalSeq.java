@@ -11,9 +11,9 @@ public class ThreadLocalSeq {
   int currentRepetition;
 
   public ThreadLocalSeq(int[] sequence) {
-    this.currentNumber = 0;
-    this.currentRepetition = 0;
     this.sequence = Arrays.stream(sequence).boxed().collect(Collectors.toList());
+    currentNumber = 0;
+    currentRepetition = 0;
   }
 
   public int next() {

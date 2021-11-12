@@ -42,9 +42,7 @@ public class TutorTests {
   @DisplayName("H1_T3: paces initialized correctly (correct length according to allRobots, filled with integers from [1...5])")
   public void testInitPaces() {
     ThreadLocalRandomTester.initializeOriginal();
-
     int[] paces;
-
     World.setSize(6, 6);
     Robot[] allRobots = new Robot[]{
       new Robot(0, 0, Direction.UP, 1000),

@@ -16,8 +16,8 @@ public class ThreadLocalRandomTester {
   public ThreadLocalRandomTester(int[] sequence, int allRobotsLength) {
     this.sequence = sequence;
     this.allRobotsLength = allRobotsLength;
-    this.threadLocalSeq = new ThreadLocalSeq(sequence);
-    this.replaceTester = true;
+    threadLocalSeq = new ThreadLocalSeq(sequence);
+    replaceTester = true;
   }
 
   public static void initializeOriginal() {
