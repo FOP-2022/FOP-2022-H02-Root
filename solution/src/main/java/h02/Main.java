@@ -180,7 +180,7 @@ public class Main {
    * @param i2    second index
    * @param i3    third index
    */
-  public static void swapPaces(int[] paces, int i1, int i2, int i3) {
+  public static int[] swapPaces(int[] paces, int i1, int i2, int i3) {
     int[] orderedI = orderThreeInts(i1, i2, i3);
     i1 = orderedI[0];
     i2 = orderedI[1];
@@ -190,6 +190,7 @@ public class Main {
     paces[i1] = orderedPaces[0];
     paces[i2] = orderedPaces[1];
     paces[i3] = orderedPaces[2];
+    return paces;
   }
 
   /**

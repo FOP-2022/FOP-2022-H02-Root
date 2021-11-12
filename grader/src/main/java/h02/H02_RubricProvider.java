@@ -1,6 +1,10 @@
 package h02;
 
 import org.sourcegrade.jagr.api.rubric.*;
+import org.sourcegrade.jagr.api.testing.ClassTransformer;
+import org.sourcegrade.jagr.api.testing.RubricConfiguration;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 @RubricForSubmission("h02")
 public class H02_RubricProvider implements RubricProvider {
@@ -99,7 +103,6 @@ public class H02_RubricProvider implements RubricProvider {
       Grader.testAwareBuilder()
         .requirePass(JUnitTestRef.ofMethod(() -> TutorTests.class.getMethod("testGenerateThreeDistinctInts")))
         .pointsPassedMax()
-        .pointsFailedMin()
         .build()
     )
     .build();
@@ -172,5 +175,10 @@ public class H02_RubricProvider implements RubricProvider {
   @Override
   public Rubric getRubric() {
     return RUBRIC;
+  }
+
+  @Override
+  public void configure(RubricConfiguration configuration) {
+    configuration.addTransformer(ClassTransformer.replacement(ThreadLocalRandomTester.class, ThreadLocalRandom.class));
   }
 }
