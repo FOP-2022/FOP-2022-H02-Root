@@ -1,12 +1,12 @@
 package h02;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.Arrays;
 
 public class ThreadLocalSeq {
 
-  private List<Integer> sequence;
+  private final List<Integer> sequence;
   int currentNumber;
   int currentRepetition;
 
@@ -20,8 +20,6 @@ public class ThreadLocalSeq {
     if (currentNumber == sequence.size()) {
       throw new IndexOutOfBoundsException("End of sequence reached.");
     }
-    var result = sequence.get(currentNumber++);
-    return result;
+    return sequence.get(currentNumber++);
   }
-
 }

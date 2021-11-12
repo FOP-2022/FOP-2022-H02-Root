@@ -1,4 +1,5 @@
 package h02;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ThreadLocalRandomTester {
@@ -6,8 +7,7 @@ public class ThreadLocalRandomTester {
   private int[] sequence;
   private ThreadLocalSeq threadLocalSeq;
   private int allRobotsLength;
-  private boolean replaceTester = false;
-
+  private final boolean replaceTester;
 
   public static void initialize(int[] sequence, int allRobotsLength) {
     factory.set(new ThreadLocalRandomTester(sequence, allRobotsLength));
@@ -28,7 +28,9 @@ public class ThreadLocalRandomTester {
     this.replaceTester = false;
   }
 
-  public static void removeCurrentTester() { factory.remove(); }
+  public static void removeCurrentTester() {
+    factory.remove();
+  }
 
   /**
    * Replaces {@link ThreadLocalRandom#current()}
@@ -37,7 +39,9 @@ public class ThreadLocalRandomTester {
     return factory.get();
   }
 
-  public int[] currentSequence() { return this.sequence; }
+  public int[] currentSequence() {
+    return this.sequence;
+  }
 
   /**
    * Replaces {@link ThreadLocalRandom#nextInt(int, int)}
@@ -49,11 +53,11 @@ public class ThreadLocalRandomTester {
       }
       if (b != allRobotsLength) {
         throw new IllegalArgumentException(String.format("Second parameter of nextInt must be allRobots.length (=%o), bust received %o. Test manually if method is correct.",
-          this.allRobotsLength, b));
+          allRobotsLength, b));
       }
       return threadLocalSeq.next();
     }
-    else { return ThreadLocalRandom.current().nextInt(a, b); }
+    return ThreadLocalRandom.current().nextInt(a, b);
   }
 
   /**
@@ -84,7 +88,7 @@ public class ThreadLocalRandomTester {
     if (replaceTester) {
       throw new UnsupportedOperationException("nextFloat() was called. Test manually.");
     }
-    else { return ThreadLocalRandom.current().nextFloat(); }
+    return ThreadLocalRandom.current().nextFloat();
   }
 
   /**
@@ -94,7 +98,7 @@ public class ThreadLocalRandomTester {
     if (replaceTester) {
       throw new UnsupportedOperationException("nextDouble() was called. Test manually.");
     }
-    else { return ThreadLocalRandom.current().nextDouble(); }
+    return ThreadLocalRandom.current().nextDouble();
   }
 
   /**
@@ -104,7 +108,7 @@ public class ThreadLocalRandomTester {
     if (replaceTester) {
       throw new UnsupportedOperationException("nextDouble(double, double) was called. Test manually.");
     }
-    else { return ThreadLocalRandom.current().nextDouble(a, b); }
+    return ThreadLocalRandom.current().nextDouble(a, b);
   }
 
   /**
@@ -114,8 +118,6 @@ public class ThreadLocalRandomTester {
     if (replaceTester) {
       throw new UnsupportedOperationException("nextDouble(double) was called. Test manually.");
     }
-    else { return ThreadLocalRandom.current().nextDouble(a); }
+    return ThreadLocalRandom.current().nextDouble(a);
   }
-
-
 }

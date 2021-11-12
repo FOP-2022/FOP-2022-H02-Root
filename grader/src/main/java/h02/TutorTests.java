@@ -51,8 +51,8 @@ public class TutorTests {
       new Robot(5, 5, Direction.UP, 1000),
     };
     List<Integer> numbers = new LinkedList<>();
-    for (int i=0; i < 10; i++) {                    // to maximize chance of detecting wrong item
-                                                    // detecting a false negative is very unlikely, but theoretically possible
+    for (int i = 0; i < 10; i++) {                    // to maximize chance of detecting wrong item
+      // detecting a false negative is very unlikely, but theoretically possible
       paces = Main.initializePaces(allRobots);
       numbers.addAll(Arrays.stream(paces).boxed().collect(Collectors.toList()));
       assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
@@ -66,7 +66,7 @@ public class TutorTests {
       new Robot(2, 2, Direction.UP, 1000)
     };
     numbers = new LinkedList<>();
-    for (int i=0; i < 20; i++) {
+    for (int i = 0; i < 20; i++) {
       paces = Main.initializePaces(allRobots);
       numbers.addAll(Arrays.stream(paces).boxed().collect(Collectors.toList()));
       assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
@@ -78,7 +78,7 @@ public class TutorTests {
       new Robot(0, 0, Direction.UP, 1000)
     };
     numbers = new LinkedList<>();
-    for (int i=0; i < 30; i++) {
+    for (int i = 0; i < 30; i++) {
       paces = Main.initializePaces(allRobots);
       numbers.addAll(Arrays.stream(paces).boxed().collect(Collectors.toList()));
       assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
@@ -179,7 +179,8 @@ public class TutorTests {
   // ----------------------------- H3.2 --------------------------------
 
   @Test
-  @DisplayName("Extra for manual testing: If H_3_2_T1 fails, you can use this method. If it doesn't fail, chances are pretty good that generateThreeDistinctInts is correct nonetheless.")      // old version, leave in file for manual testing
+  @DisplayName("Extra for manual testing: If H_3_2_T1 fails, you can use this method. If it doesn't fail, chances are pretty good that generateThreeDistinctInts is correct nonetheless.")
+  // old version, leave in file for manual testing
   public void testGenerateThreeDistinctIntsManual() {           // for manual testing if testGenerateTreeDistinctInts (which is called by RubricProvider) fails
     World.setSize(7, 7);
     Robot[] r = new Robot[]{
@@ -241,7 +242,7 @@ public class TutorTests {
     ThreadLocalRandomTester.initialize(new int[]{1, 2, 3}, r.length);
     int[] d = Main.generateThreeDistinctInts(r);
     Arrays.sort(d);
-    assertTrue(Arrays.equals(d, new int[] {1, 2, 3}));
+    assertTrue(Arrays.equals(d, new int[]{1, 2, 3}));
     ThreadLocalRandomTester.removeCurrentTester();
 
     World.setSize(7, 7);
@@ -262,7 +263,7 @@ public class TutorTests {
     ThreadLocalRandomTester.initialize(new int[]{1, 6, 7, 8}, s.length);
     int[] e = Main.generateThreeDistinctInts(s);
     Arrays.sort(e);
-    assertTrue(Arrays.equals(e, new int[] {1, 6, 7}));
+    assertTrue(Arrays.equals(e, new int[]{1, 6, 7}));
     ThreadLocalRandomTester.removeCurrentTester();
 
     World.setSize(7, 7);
@@ -283,7 +284,7 @@ public class TutorTests {
     ThreadLocalRandomTester.initialize(new int[]{7, 7, 4, 4, 3, 1}, t.length);
     int[] f = Main.generateThreeDistinctInts(t);
     Arrays.sort(f);
-    assertTrue(Arrays.equals(f, new int[] {3, 4, 7}));
+    assertTrue(Arrays.equals(f, new int[]{3, 4, 7}));
     ThreadLocalRandomTester.removeCurrentTester();
 
     World.setSize(7, 7);
@@ -304,7 +305,7 @@ public class TutorTests {
     ThreadLocalRandomTester.initialize(new int[]{4, 4, 4, 4, 4, 5, 5, 5, 5, 1, 2, 6, 2, 1}, u.length);
     int[] g = Main.generateThreeDistinctInts(u);
     Arrays.sort(g);
-    assertTrue(Arrays.equals(g, new int[] {1, 4, 5}));
+    assertTrue(Arrays.equals(g, new int[]{1, 4, 5}));
     ThreadLocalRandomTester.removeCurrentTester();
 
     ThreadLocalRandomTester.initializeOriginal();
