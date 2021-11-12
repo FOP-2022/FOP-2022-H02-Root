@@ -25,7 +25,7 @@ public class ThreadLocalRandomTester {
   }
 
   public ThreadLocalRandomTester() {
-    this.replaceTester = false;
+    replaceTester = false;
   }
 
   public static void removeCurrentTester() {
@@ -40,7 +40,7 @@ public class ThreadLocalRandomTester {
   }
 
   public int[] currentSequence() {
-    return this.sequence;
+    return sequence;
   }
 
   /**

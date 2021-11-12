@@ -103,7 +103,6 @@ public class H02_RubricProvider implements RubricProvider {
       Grader.testAwareBuilder()
         .requirePass(JUnitTestRef.ofMethod(() -> TutorTests.class.getMethod("testGenerateThreeDistinctInts")))
         .pointsPassedMax()
-        // .pointsFailedMin() // manuelle Bewertung falls Fehler geworfen wird
         .build()
     )
     .build();

@@ -5,7 +5,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,7 +43,7 @@ public class TutorTests {
   public void testInitPaces() {
     ThreadLocalRandomTester.initializeOriginal();
 
-    int[] paces = null;
+    int[] paces;
 
     World.setSize(6, 6);
     Robot[] allRobots = new Robot[]{
@@ -263,7 +267,7 @@ public class TutorTests {
     ThreadLocalRandomTester.initialize(new int[]{1, 6, 7, 8}, s.length);
     int[] e = Main.generateThreeDistinctInts(s);
     Arrays.sort(e);
-    assertTrue(Arrays.equals(e, new int[]{1, 6, 7}));
+    assertArrayEquals(e, new int[]{1, 6, 7});
     ThreadLocalRandomTester.removeCurrentTester();
 
     World.setSize(7, 7);
@@ -284,7 +288,7 @@ public class TutorTests {
     ThreadLocalRandomTester.initialize(new int[]{7, 7, 4, 4, 3, 1}, t.length);
     int[] f = Main.generateThreeDistinctInts(t);
     Arrays.sort(f);
-    assertTrue(Arrays.equals(f, new int[]{3, 4, 7}));
+    assertArrayEquals(f, new int[]{3, 4, 7});
     ThreadLocalRandomTester.removeCurrentTester();
 
     World.setSize(7, 7);
@@ -305,7 +309,7 @@ public class TutorTests {
     ThreadLocalRandomTester.initialize(new int[]{4, 4, 4, 4, 4, 5, 5, 5, 5, 1, 2, 6, 2, 1}, u.length);
     int[] g = Main.generateThreeDistinctInts(u);
     Arrays.sort(g);
-    assertTrue(Arrays.equals(g, new int[]{1, 4, 5}));
+    assertArrayEquals(g, new int[]{1, 4, 5});
     ThreadLocalRandomTester.removeCurrentTester();
 
     ThreadLocalRandomTester.initializeOriginal();
