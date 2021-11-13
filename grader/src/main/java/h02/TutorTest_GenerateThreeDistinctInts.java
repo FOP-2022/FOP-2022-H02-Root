@@ -14,7 +14,7 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Nested
-@DisplayName("(RequiresJagr) H3_2_T1: generateThreeDistinctInts correct")         // version which is used by RubricProvider
+@DisplayName("(RequiresJagr) H3_2_T1: generateThreeDistinctInts correct")
 @TestForSubmission("h02")
 public class TutorTest_GenerateThreeDistinctInts {
   /**
