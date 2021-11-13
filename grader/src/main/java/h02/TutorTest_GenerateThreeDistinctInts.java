@@ -17,16 +17,28 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("(RequiresJagr) H3_2_T1: generateThreeDistinctInts correct")
 @TestForSubmission("h02")
 public class TutorTest_GenerateThreeDistinctInts {
+
+  private static final int[] SEQ_0 = {7, 7, 4, 4, 3, 1};
+  private static final int[] SEQ_1 = {0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 4, 7, 4, 3, 1};
+  private static final int[] SEQ_2 = {9, 5, 5, 5, 5, 5, 5, 5, 5, 1, 2, 6, 7, 8, 8, 8};
+  private static final int[] SEQ_3 = {1, 2, 1, 1, 2, 2, 1, 2, 1, 2, 1, 2, 0, 3, 4};
+
+  private static void verifyThreeDistinctInts(int[] seq, int[] expected, int robotCount) {
+    Robot[] robots = generateRobots(robotCount);
+    ThreadLocalRandomTester.runWithSeq(seq, robots.length, () -> {
+      int[] distinctInts = Main.generateThreeDistinctInts(robots);
+      Arrays.sort(distinctInts);
+      assertArrayEquals(expected, distinctInts);
+    });
+  }
+
   /**
    * Shared instance of zero-length robot array
    */
-  private static final Robot[] NO_ROBOTS = new Robot[0];
 
   private static Robot[] generateRobots(int count, int worldWidth, int worldHeight) {
     if (count < 0) {
       throw new IllegalArgumentException("Count " + count + " must be positive");
-    } else if (count == 0) {
-      return NO_ROBOTS;
     }
 
     Random seeded = new Random(42);
@@ -74,44 +86,20 @@ public class TutorTest_GenerateThreeDistinctInts {
   @DisplayName("H3_2_T1_simple1")
   public void testSimple1() {
     World.setSize(7, 7);
-    Robot[] r = generateRobots(3);
-    ThreadLocalRandomTester.runWithSeq(new int[]{1, 2, 3}, r.length, () -> {
-      int[] d = Main.generateThreeDistinctInts(r);
-      Arrays.sort(d);
-      assertArrayEquals(new int[]{1, 2, 3}, d);
-    });
+    verifyThreeDistinctInts(new int[]{1, 2, 3}, new int[]{1, 2, 3}, 3);
   }
 
   @Test
   @DisplayName("H3_2_T1_simple2")
   public void testSimple2() {
     World.setSize(7, 7);
-    Robot[] robots = generateRobots(12);
-    ThreadLocalRandomTester.runWithSeq(new int[]{1, 6, 7, 8}, robots.length, () -> {
-      int[] distinctInts = Main.generateThreeDistinctInts(robots);
-      Arrays.sort(distinctInts);
-      assertArrayEquals(new int[]{1, 6, 7}, distinctInts);
-    });
+    verifyThreeDistinctInts(new int[]{1, 6, 7, 8}, new int[]{1, 6, 7}, 12);
   }
 
   @Nested
   @TestClassOrder(ClassOrderer.ClassName.class)
   @DisplayName("H3_2_T1: TestDifferentApproaches - Only one approach required")
   public class TestDifferentApproaches {
-
-    private final int[] SEQ_0 = {7, 7, 4, 4, 3, 1};
-    private final int[] SEQ_1 = {0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 4, 7, 4, 3, 1};
-    private final int[] SEQ_2 = {9, 5, 5, 5, 5, 5, 5, 5, 5, 1, 2, 6, 7, 8, 8, 8};
-    private final int[] SEQ_3 = {1, 2, 1, 1, 2, 2, 1, 2, 1, 2, 1, 2, 0, 3, 4};
-
-    private void verifyThreeDistinctInts(int[] seq, int[] expected, int robotCount) {
-      Robot[] robots = generateRobots(robotCount);
-      ThreadLocalRandomTester.runWithSeq(seq, robots.length, () -> {
-        int[] distinctInts = Main.generateThreeDistinctInts(robots);
-        Arrays.sort(distinctInts);
-        assertArrayEquals(expected, distinctInts);
-      });
-    }
 
     /**
      * Tests a specific approach to this problem.
