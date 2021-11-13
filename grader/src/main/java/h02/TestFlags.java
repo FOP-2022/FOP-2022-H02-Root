@@ -13,8 +13,9 @@ public class TestFlags {
   private final static int[] rows = {4, 5, 6, 5, 7};
 
   public static Boolean getFlagLengthAll(int i) {
-    if (flagLengthAll[i] != null)
+    if (flagLengthAll[i] != null) {
       return flagLengthAll[i];
+    }
     if (allRobots[i] == null) {
       World.setSize(cols[i], rows[i]);
       allRobots[i] = Main.initializeRobots(cols[i], rows[i]);
@@ -23,8 +24,9 @@ public class TestFlags {
   }
 
   public static Boolean getFlagDiagArr(int i) {
-    if (flagDiagArr[i] != null)
+    if (flagDiagArr[i] != null) {
       return flagDiagArr[i];
+    }
     if (allRobots[i] == null) {
       World.setSize(cols[i], rows[i]);
       allRobots[i] = Main.initializeRobots(cols[i], rows[i]);
