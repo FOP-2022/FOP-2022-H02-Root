@@ -19,21 +19,21 @@ public class TutorTests {
   @Test
   @DisplayName("H1_T1: allRobots array has correct size")
   public void testAllRobotsSize() {
-    assertTrue(TestFlags.getFlagLengthAllR1());
-    assertTrue(TestFlags.getFlagLengthAllR2());
-    assertTrue(TestFlags.getFlagLengthAllR3());
-    assertTrue(TestFlags.getFlagLengthAllR4());
-    assertTrue(TestFlags.getFlagLengthAllR5());
+    assertTrue(TestFlags.getFlagLengthAll(0)); // 4 cols, 4 rows
+    assertTrue(TestFlags.getFlagLengthAll(1)); // 4 cols, 5 rows
+    assertTrue(TestFlags.getFlagLengthAll(2)); // 9 cols, 6 rows
+    assertTrue(TestFlags.getFlagLengthAll(3)); // 9 cols, 5 rows
+    assertTrue(TestFlags.getFlagLengthAll(4)); // 7 cols, 7 rows
   }
 
   @Test
   @DisplayName("H1_T2: allRobots array filled correctly (robots on world's diagonal, lower half looking right, upper half looking left")
   public void testAllRobotsDiag() {          // can only get points if length of array is correct
-    assertTrue(TestFlags.getFlagLengthAllR1() && TestFlags.getFlagDiagArr1());
-    assertTrue(TestFlags.getFlagLengthAllR2() && TestFlags.getFlagDiagArr2());
-    assertTrue(TestFlags.getFlagLengthAllR3() && TestFlags.getFlagDiagArr3());
-    assertTrue(TestFlags.getFlagLengthAllR4() && TestFlags.getFlagDiagArr4());
-    assertTrue(TestFlags.getFlagLengthAllR5() && TestFlags.getFlagDiagArr5());
+    assertTrue(TestFlags.getFlagLengthAll(0) && TestFlags.getFlagDiagArr(0)); // 4 cols, 4 rows
+    assertTrue(TestFlags.getFlagLengthAll(1) && TestFlags.getFlagDiagArr(1)); // 4 cols, 5 rows
+    assertTrue(TestFlags.getFlagLengthAll(2) && TestFlags.getFlagDiagArr(2)); // 9 cols, 6 rows
+    assertTrue(TestFlags.getFlagLengthAll(3) && TestFlags.getFlagDiagArr(3)); // 9 cols, 5 rows
+    assertTrue(TestFlags.getFlagLengthAll(4) && TestFlags.getFlagDiagArr(4)); // 7 cols, 7 rows
   }
 
   @Test
@@ -169,7 +169,7 @@ public class TutorTests {
       };
     int[] d = Main.generateThreeDistinctInts(r);
     assertTrueGenDist(r, d);
-    
+
     World.setSize(7, 7);
     Robot[] s = new Robot[]{
         new Robot(3, 4, Direction.UP, 0),
@@ -187,7 +187,7 @@ public class TutorTests {
       };
     int[] e = Main.generateThreeDistinctInts(s);
     assertTrueGenDist(s, e);
-    
+
     World.setSize(5, 5);
     Robot[] t = new Robot[]{
         new Robot(3, 4, Direction.UP, 0),
@@ -197,13 +197,13 @@ public class TutorTests {
     int[] f = Main.generateThreeDistinctInts(t);
     assertTrueGenDist(t, f);
   }
-  
+
   private void assertTrueGenDist(Robot[] r, int[] d) {
     assertTrue(correctInterval(d, r.length));
     assertTrue(distinctNumbers(d));
     assertTrue(d.length==3);
   }
-  
+
   @Test
   @DisplayName("H3_2_T2: orderThreeInts correct")
   public void testOrderThreeInts() {
@@ -383,7 +383,7 @@ public class TutorTests {
     }
     return true;
   }
-  
+
   public static boolean correctInterval(int[] dist, int upperBound) {
     for(int i : dist) {
       if (i < 0 || i > upperBound - 1) {
@@ -392,12 +392,12 @@ public class TutorTests {
     }
     return true;
   }
-  
+
   public static boolean distinctNumbers(int[] dist) {
     if (dist[0] == dist[1] || dist[0] == dist[2] || dist[1] == dist[2]) {
       return false;
     }
     return true;
   }
-  
+
 }
