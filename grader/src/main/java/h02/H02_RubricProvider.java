@@ -1,6 +1,11 @@
 package h02;
 
-import org.sourcegrade.jagr.api.rubric.*;
+import org.sourcegrade.jagr.api.rubric.Criterion;
+import org.sourcegrade.jagr.api.rubric.Grader;
+import org.sourcegrade.jagr.api.rubric.JUnitTestRef;
+import org.sourcegrade.jagr.api.rubric.Rubric;
+import org.sourcegrade.jagr.api.rubric.RubricForSubmission;
+import org.sourcegrade.jagr.api.rubric.RubricProvider;
 import org.sourcegrade.jagr.api.testing.ClassTransformer;
 import org.sourcegrade.jagr.api.testing.RubricConfiguration;
 
@@ -101,7 +106,21 @@ public class H02_RubricProvider implements RubricProvider {
     .shortDescription("H3_2_T1: generateThreeDistinctInts funktioniert korrekt. Es werden drei distinkte natürliche Zufallszahlen i1, i2, i3 im Intervall [0, allRobots.length-1] erstellt.")
     .grader(
       Grader.testAwareBuilder()
-        .requirePass(JUnitTestRef.ofMethod(() -> TutorTests.class.getMethod("testGenerateThreeDistinctInts")))
+        .requirePass(JUnitTestRef.or(
+          // JUnit test class is still marked as successful even if children fail, this is the workaround
+          JUnitTestRef.and(
+            JUnitTestRef.ofMethod(() -> TutorTest_GenerateThreeDistinctInts.TestDifferentApproaches.TestApproach0.class.getMethod("testCase0")),
+            JUnitTestRef.ofMethod(() -> TutorTest_GenerateThreeDistinctInts.TestDifferentApproaches.TestApproach0.class.getMethod("testCase1")),
+            JUnitTestRef.ofMethod(() -> TutorTest_GenerateThreeDistinctInts.TestDifferentApproaches.TestApproach0.class.getMethod("testCase2")),
+            JUnitTestRef.ofMethod(() -> TutorTest_GenerateThreeDistinctInts.TestDifferentApproaches.TestApproach0.class.getMethod("testCase3"))
+          ),
+          JUnitTestRef.and(
+            JUnitTestRef.ofMethod(() -> TutorTest_GenerateThreeDistinctInts.TestDifferentApproaches.TestApproach1.class.getMethod("testCase0")),
+            JUnitTestRef.ofMethod(() -> TutorTest_GenerateThreeDistinctInts.TestDifferentApproaches.TestApproach1.class.getMethod("testCase1")),
+            JUnitTestRef.ofMethod(() -> TutorTest_GenerateThreeDistinctInts.TestDifferentApproaches.TestApproach1.class.getMethod("testCase2")),
+            JUnitTestRef.ofMethod(() -> TutorTest_GenerateThreeDistinctInts.TestDifferentApproaches.TestApproach1.class.getMethod("testCase3"))
+          )
+        ))
         .pointsPassedMax()
         .build()
     )

@@ -1,8 +1,6 @@
 package h02;
 
-import fopbot.Direction;
-import fopbot.Robot;
-import fopbot.World;
+import fopbot.*;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -123,16 +121,16 @@ public class Main {
    */
   public static int[] generateThreeDistinctInts(Robot[] allRobots) {
     int numberOfBots = allRobots.length;
+    int i0 = ThreadLocalRandom.current().nextInt(numberOfBots);
     int i1 = ThreadLocalRandom.current().nextInt(numberOfBots);
+    while (i0 == i1) {
+      i1 = ThreadLocalRandom.current().nextInt(numberOfBots);
+    }
     int i2 = ThreadLocalRandom.current().nextInt(numberOfBots);
-    while (i1 == i2) {
+    while (i2 == i0 || i2 == i1) {
       i2 = ThreadLocalRandom.current().nextInt(numberOfBots);
     }
-    int i3 = ThreadLocalRandom.current().nextInt(numberOfBots);
-    while (i3 == i1 || i3 == i2) {
-      i3 = ThreadLocalRandom.current().nextInt(numberOfBots);
-    }
-    return new int[]{i1, i2, i3};
+    return new int[]{i0, i1, i2};
   }
 
   /**

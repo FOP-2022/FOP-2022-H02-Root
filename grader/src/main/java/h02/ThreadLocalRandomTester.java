@@ -9,6 +9,12 @@ public class ThreadLocalRandomTester {
   private int allRobotsLength;
   private final boolean replaceTester;
 
+  public static void runWithSeq(int[] sequence, int allRobotsLength, Runnable block) {
+    initialize(sequence, allRobotsLength);
+    block.run();
+    removeCurrentTester();
+  }
+
   public static void initialize(int[] sequence, int allRobotsLength) {
     factory.set(new ThreadLocalRandomTester(sequence, allRobotsLength));
   }
