@@ -1,14 +1,16 @@
 package h02;
 
-import fopbot.Direction;
-import fopbot.Robot;
-import fopbot.World;
+import fopbot.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sourcegrade.jagr.api.rubric.TestForSubmission;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,6 +41,8 @@ public class TutorTests {
   @Test
   @DisplayName("H1_T3: paces initialized correctly (correct length according to allRobots, filled with integers from [1...5])")
   public void testInitPaces() {
+    ThreadLocalRandomTester.initializeOriginal();
+    int[] paces;
     World.setSize(6, 6);
     Robot[] allRobots = new Robot[]{
       new Robot(0, 0, Direction.UP, 1000),
@@ -48,8 +52,14 @@ public class TutorTests {
       new Robot(4, 4, Direction.UP, 1000),
       new Robot(5, 5, Direction.UP, 1000),
     };
-    int[] paces = Main.initializePaces(allRobots);
-    assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
+    List<Integer> numbers = new LinkedList<>();
+    for (int i = 0; i < 10; i++) {                    // to maximize chance of detecting wrong item
+      // detecting a false negative is very unlikely, but theoretically possible
+      paces = Main.initializePaces(allRobots);
+      numbers.addAll(Arrays.stream(paces).boxed().collect(Collectors.toList()));
+      assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
+    }
+    assertTrue(containsAllInterval(numbers));
 
     World.setSize(3, 3);
     allRobots = new Robot[]{
@@ -57,15 +67,30 @@ public class TutorTests {
       new Robot(1, 1, Direction.UP, 1000),
       new Robot(2, 2, Direction.UP, 1000)
     };
-    paces = Main.initializePaces(allRobots);
-    assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
+    numbers = new LinkedList<>();
+    for (int i = 0; i < 20; i++) {
+      paces = Main.initializePaces(allRobots);
+      numbers.addAll(Arrays.stream(paces).boxed().collect(Collectors.toList()));
+      assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
+    }
+    assertTrue(containsAllInterval(numbers));
 
     World.setSize(1, 1);
     allRobots = new Robot[]{
       new Robot(0, 0, Direction.UP, 1000)
     };
-    paces = Main.initializePaces(allRobots);
-    assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
+    numbers = new LinkedList<>();
+    for (int i = 0; i < 30; i++) {
+      paces = Main.initializePaces(allRobots);
+      numbers.addAll(Arrays.stream(paces).boxed().collect(Collectors.toList()));
+      assertTrue(checkPacesInterval(paces) && allRobots.length == paces.length);
+    }
+    assertTrue(containsAllInterval(numbers));
+    ThreadLocalRandomTester.removeCurrentTester();
+  }
+
+  public static boolean containsAllInterval(List<Integer> numbers) {
+    return numbers.contains(1) && numbers.contains(2) && numbers.contains(3) && numbers.contains(4) && numbers.contains(5);
   }
 
   // ----------------------------- H3.1 --------------------------------
@@ -156,44 +181,45 @@ public class TutorTests {
   // ----------------------------- H3.2 --------------------------------
 
   @Test
-  @DisplayName("H3_2_T1: generateThreeDistinctInts correct")
-  public void testGenerateThreeDistinctInts() {
+  @DisplayName("Extra for manual testing: If H_3_2_T1 fails, you can use this method. If it doesn't fail, chances are pretty good that generateThreeDistinctInts is correct nonetheless.")
+  // old version, leave in file for manual testing
+  public void testGenerateThreeDistinctIntsManual() {           // for manual testing if testGenerateTreeDistinctInts (which is called by RubricProvider) fails
     World.setSize(7, 7);
     Robot[] r = new Robot[]{
-        new Robot(3, 4, Direction.UP, 0),
-        new Robot(3, 3, Direction.RIGHT, 0),
-        new Robot(0, 2, Direction.DOWN, 0),
-        new Robot(6, 2, Direction.DOWN, 0),
-        new Robot(4, 5, Direction.DOWN, 0),
-        new Robot(2, 3, Direction.DOWN, 0)
-      };
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0),
+      new Robot(6, 2, Direction.DOWN, 0),
+      new Robot(4, 5, Direction.DOWN, 0),
+      new Robot(2, 3, Direction.DOWN, 0)
+    };
     int[] d = Main.generateThreeDistinctInts(r);
     assertTrueGenDist(r, d);
 
     World.setSize(7, 7);
     Robot[] s = new Robot[]{
-        new Robot(3, 4, Direction.UP, 0),
-        new Robot(3, 3, Direction.RIGHT, 0),
-        new Robot(0, 2, Direction.DOWN, 0),
-        new Robot(6, 2, Direction.DOWN, 0),
-        new Robot(4, 5, Direction.DOWN, 0),
-        new Robot(2, 3, Direction.DOWN, 0),
-        new Robot(3, 4, Direction.UP, 0),
-        new Robot(3, 3, Direction.RIGHT, 0),
-        new Robot(0, 2, Direction.DOWN, 0),
-        new Robot(6, 2, Direction.DOWN, 0),
-        new Robot(4, 5, Direction.DOWN, 0),
-        new Robot(2, 3, Direction.DOWN, 0)
-      };
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0),
+      new Robot(6, 2, Direction.DOWN, 0),
+      new Robot(4, 5, Direction.DOWN, 0),
+      new Robot(2, 3, Direction.DOWN, 0),
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0),
+      new Robot(6, 2, Direction.DOWN, 0),
+      new Robot(4, 5, Direction.DOWN, 0),
+      new Robot(2, 3, Direction.DOWN, 0)
+    };
     int[] e = Main.generateThreeDistinctInts(s);
     assertTrueGenDist(s, e);
 
     World.setSize(5, 5);
     Robot[] t = new Robot[]{
-        new Robot(3, 4, Direction.UP, 0),
-        new Robot(3, 3, Direction.RIGHT, 0),
-        new Robot(0, 2, Direction.DOWN, 0)
-      };
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0)
+    };
     int[] f = Main.generateThreeDistinctInts(t);
     assertTrueGenDist(t, f);
   }
@@ -201,7 +227,90 @@ public class TutorTests {
   private void assertTrueGenDist(Robot[] r, int[] d) {
     assertTrue(correctInterval(d, r.length));
     assertTrue(distinctNumbers(d));
-    assertTrue(d.length==3);
+    assertTrue(d.length == 3);
+  }
+
+  @Test
+  @DisplayName("H3_2_T1: generateThreeDistinctInts correct")         // version which is used by RubricProvider
+  public void testGenerateThreeDistinctInts() {
+    ThreadLocalRandomTester.removeCurrentTester();
+
+    World.setSize(7, 7);
+    Robot[] r = new Robot[]{
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0)
+    };
+    ThreadLocalRandomTester.initialize(new int[]{1, 2, 3}, r.length);
+    int[] d = Main.generateThreeDistinctInts(r);
+    Arrays.sort(d);
+    assertTrue(Arrays.equals(d, new int[]{1, 2, 3}));
+    ThreadLocalRandomTester.removeCurrentTester();
+
+    World.setSize(7, 7);
+    Robot[] s = new Robot[]{
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0),
+      new Robot(6, 2, Direction.DOWN, 0),
+      new Robot(4, 5, Direction.DOWN, 0),
+      new Robot(2, 3, Direction.DOWN, 0),
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0),
+      new Robot(6, 2, Direction.DOWN, 0),
+      new Robot(4, 5, Direction.DOWN, 0),
+      new Robot(2, 3, Direction.DOWN, 0)
+    };
+    ThreadLocalRandomTester.initialize(new int[]{1, 6, 7, 8}, s.length);
+    int[] e = Main.generateThreeDistinctInts(s);
+    Arrays.sort(e);
+    assertArrayEquals(e, new int[]{1, 6, 7});
+    ThreadLocalRandomTester.removeCurrentTester();
+
+    World.setSize(7, 7);
+    Robot[] t = new Robot[]{
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0),
+      new Robot(6, 2, Direction.DOWN, 0),
+      new Robot(4, 5, Direction.DOWN, 0),
+      new Robot(2, 3, Direction.DOWN, 0),
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0),
+      new Robot(6, 2, Direction.DOWN, 0),
+      new Robot(4, 5, Direction.DOWN, 0),
+      new Robot(2, 3, Direction.DOWN, 0)
+    };
+    ThreadLocalRandomTester.initialize(new int[]{7, 7, 4, 4, 3, 1}, t.length);
+    int[] f = Main.generateThreeDistinctInts(t);
+    Arrays.sort(f);
+    assertArrayEquals(f, new int[]{3, 4, 7});
+    ThreadLocalRandomTester.removeCurrentTester();
+
+    World.setSize(7, 7);
+    Robot[] u = new Robot[]{
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0),
+      new Robot(6, 2, Direction.DOWN, 0),
+      new Robot(4, 5, Direction.DOWN, 0),
+      new Robot(2, 3, Direction.DOWN, 0),
+      new Robot(3, 4, Direction.UP, 0),
+      new Robot(3, 3, Direction.RIGHT, 0),
+      new Robot(0, 2, Direction.DOWN, 0),
+      new Robot(6, 2, Direction.DOWN, 0),
+      new Robot(4, 5, Direction.DOWN, 0),
+      new Robot(2, 3, Direction.DOWN, 0)
+    };
+    ThreadLocalRandomTester.initialize(new int[]{4, 4, 4, 4, 4, 5, 5, 5, 5, 1, 2, 6, 2, 1}, u.length);
+    int[] g = Main.generateThreeDistinctInts(u);
+    Arrays.sort(g);
+    assertArrayEquals(g, new int[]{1, 4, 5});
+    ThreadLocalRandomTester.removeCurrentTester();
+
+    ThreadLocalRandomTester.initializeOriginal();
   }
 
   @Test
@@ -237,30 +346,23 @@ public class TutorTests {
     int c = 4;
     int[] beforeArr = new int[]{14, 25, 676, 2, 9, 15, 67};
     int[] afterArr = new int[]{2, 25, 676, 9, 14, 15, 67};
-    Main.swapPaces(beforeArr, a, b, c);
-    assertTrue(isIntegerArrayEqual(afterArr, beforeArr));
-    beforeArr = new int[]{14, 25, 676, 2, 9, 15, 67};
-    Main.swapPaces(beforeArr, b, a, c);
-    assertTrue(isIntegerArrayEqual(afterArr, beforeArr));
-    beforeArr = new int[]{14, 25, 676, 2, 9, 15, 67};
-    Main.swapPaces(beforeArr, c, a, b);
-    assertTrue(isIntegerArrayEqual(afterArr, beforeArr));
+    assertTrue(isIntegerArrayEqual(afterArr, Main.swapPaces(beforeArr, a, b, c)));
+    assertTrue(isIntegerArrayEqual(afterArr, Main.swapPaces(beforeArr, a, c, b)));
+    assertTrue(isIntegerArrayEqual(afterArr, Main.swapPaces(beforeArr, b, c, a)));
 
     a = 0;
     b = 3;
     c = 1;
     beforeArr = new int[]{1, 2, 3, 4};
     afterArr = new int[]{1, 2, 3, 4};
-    Main.swapPaces(beforeArr, a, b, c);
-    assertTrue(isIntegerArrayEqual(afterArr, beforeArr));
+    assertTrue(isIntegerArrayEqual(afterArr, Main.swapPaces(beforeArr, a, b, c)));
 
     a = 2;
     b = 1;
     c = 0;
     beforeArr = new int[]{41, 12, 33, 4};
     afterArr = new int[]{12, 33, 41, 4};
-    Main.swapPaces(beforeArr, a, b, c);
-    assertTrue(isIntegerArrayEqual(afterArr, beforeArr));
+    assertTrue(isIntegerArrayEqual(afterArr, Main.swapPaces(beforeArr, a, b, c)));
   }
 
   // ----------------------------- H3.3 --------------------------------
@@ -329,7 +431,6 @@ public class TutorTests {
     }
     for (int i = 0; i < robots1.length; i++) {
       if (!isBotEqualMove(robots1[i], robots2[i])) {
-        System.out.println(i);
         return false;
       }
     }
@@ -385,7 +486,7 @@ public class TutorTests {
   }
 
   public static boolean correctInterval(int[] dist, int upperBound) {
-    for(int i : dist) {
+    for (int i : dist) {
       if (i < 0 || i > upperBound - 1) {
         return false;
       }
@@ -394,10 +495,6 @@ public class TutorTests {
   }
 
   public static boolean distinctNumbers(int[] dist) {
-    if (dist[0] == dist[1] || dist[0] == dist[2] || dist[1] == dist[2]) {
-      return false;
-    }
-    return true;
+    return dist[0] != dist[1] && dist[0] != dist[2] && dist[1] != dist[2];
   }
-
 }
