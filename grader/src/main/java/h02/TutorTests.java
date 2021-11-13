@@ -21,21 +21,21 @@ public class TutorTests {
   @Test
   @DisplayName("H1_T1: allRobots array has correct size")
   public void testAllRobotsSize() {
-    assertTrue(TestFlags.getFlagLengthAllR1());
-    assertTrue(TestFlags.getFlagLengthAllR2());
-    assertTrue(TestFlags.getFlagLengthAllR3());
-    assertTrue(TestFlags.getFlagLengthAllR4());
-    assertTrue(TestFlags.getFlagLengthAllR5());
+    assertTrue(TestFlags.getFlagLengthAll(0)); // 4 cols, 4 rows
+    assertTrue(TestFlags.getFlagLengthAll(1)); // 4 cols, 5 rows
+    assertTrue(TestFlags.getFlagLengthAll(2)); // 9 cols, 6 rows
+    assertTrue(TestFlags.getFlagLengthAll(3)); // 9 cols, 5 rows
+    assertTrue(TestFlags.getFlagLengthAll(4)); // 7 cols, 7 rows
   }
 
   @Test
   @DisplayName("H1_T2: allRobots array filled correctly (robots on world's diagonal, lower half looking right, upper half looking left")
   public void testAllRobotsDiag() {          // can only get points if length of array is correct
-    assertTrue(TestFlags.getFlagLengthAllR1() && TestFlags.getFlagDiagArr1());
-    assertTrue(TestFlags.getFlagLengthAllR2() && TestFlags.getFlagDiagArr2());
-    assertTrue(TestFlags.getFlagLengthAllR3() && TestFlags.getFlagDiagArr3());
-    assertTrue(TestFlags.getFlagLengthAllR4() && TestFlags.getFlagDiagArr4());
-    assertTrue(TestFlags.getFlagLengthAllR5() && TestFlags.getFlagDiagArr5());
+    assertTrue(TestFlags.getFlagLengthAll(0) && TestFlags.getFlagDiagArr(0)); // 4 cols, 4 rows
+    assertTrue(TestFlags.getFlagLengthAll(1) && TestFlags.getFlagDiagArr(1)); // 4 cols, 5 rows
+    assertTrue(TestFlags.getFlagLengthAll(2) && TestFlags.getFlagDiagArr(2)); // 9 cols, 6 rows
+    assertTrue(TestFlags.getFlagLengthAll(3) && TestFlags.getFlagDiagArr(3)); // 9 cols, 5 rows
+    assertTrue(TestFlags.getFlagLengthAll(4) && TestFlags.getFlagDiagArr(4)); // 7 cols, 7 rows
   }
 
   @Test
