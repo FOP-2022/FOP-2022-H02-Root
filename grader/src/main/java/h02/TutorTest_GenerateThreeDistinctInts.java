@@ -125,7 +125,6 @@ public class TutorTest_GenerateThreeDistinctInts {
     public class TestApproach0 {
       @Test
       public void testCase0() {
-        new Exception().printStackTrace();
         World.setSize(7, 7);
         verifyThreeDistinctInts(SEQ_0, new int[]{3, 4, 7}, 12);
       }
