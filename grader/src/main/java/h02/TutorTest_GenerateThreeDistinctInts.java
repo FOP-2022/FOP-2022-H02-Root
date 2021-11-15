@@ -13,7 +13,6 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Nested
 @DisplayName("(RequiresJagr) H3_2_T1: generateThreeDistinctInts correct")
 @TestForSubmission("h02")
 public class TutorTest_GenerateThreeDistinctInts {
@@ -109,7 +108,7 @@ public class TutorTest_GenerateThreeDistinctInts {
      *   int i0 = nextInt();
      *   int i1 = nextInt();
      *   while (i0 == i1) {
-     *     i2 = nextInt();
+     *     i1 = nextInt();
      *   }
      *   int i2 = nextInt()
      *   while (i2 == i0 || i2 == i1) {
