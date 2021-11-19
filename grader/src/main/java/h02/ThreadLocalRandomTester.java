@@ -71,18 +71,18 @@ public class ThreadLocalRandomTester {
   /**
    * Replaces {@link ThreadLocalRandom#ints(int, int)}
    */
-  public IntStream ints(int randomNumberOrigin, int randomNumberBound) {
+  public IntStream ints(int a, int b) {
     if (replaceTester) {
-      if (randomNumberOrigin != 0) {
-        throw new IllegalArgumentException(String.format("First parameter of ints must be 0, bust received %o. Test manually if method is correct.", randomNumberOrigin));
+      if (a != 0) {
+        throw new IllegalArgumentException(String.format("First parameter of ints must be 0, bust received %o. Test manually if method is correct.", a));
       }
-      if (randomNumberBound != allRobotsLength) {
+      if (b != allRobotsLength) {
         throw new IllegalArgumentException(String.format("Second parameter of ints must be allRobots.length (=%o), bust received %o. Test manually if method is correct.",
-          this.allRobotsLength, randomNumberBound));
+          this.allRobotsLength, b));
       }
       return Arrays.stream(sequence);
     }
-    return ThreadLocalRandom.current().ints(randomNumberOrigin, randomNumberBound);
+    return ThreadLocalRandom.current().ints(a, b);
   }
 
   /**
