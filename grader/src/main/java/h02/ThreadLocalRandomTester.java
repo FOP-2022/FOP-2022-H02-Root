@@ -1,6 +1,8 @@
 package h02;
 
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.IntStream;
+import java.util.Arrays;
 
 public class ThreadLocalRandomTester {
   private static final InheritableThreadLocal<ThreadLocalRandomTester> factory = new InheritableThreadLocal<>();
@@ -64,6 +66,23 @@ public class ThreadLocalRandomTester {
       return threadLocalSeq.next();
     }
     return ThreadLocalRandom.current().nextInt(a, b);
+  }
+
+  /**
+   * Replaces {@link ThreadLocalRandom#ints(int, int)}
+   */
+  public IntStream ints(int randomNumberOrigin, int randomNumberBound) {
+    if (replaceTester) {
+      if (randomNumberOrigin != 0) {
+        throw new IllegalArgumentException(String.format("First parameter of ints must be 0, bust received %o. Test manually if method is correct.", randomNumberOrigin));
+      }
+      if (randomNumberBound != allRobotsLength) {
+        throw new IllegalArgumentException(String.format("Second parameter of ints must be allRobots.length (=%o), bust received %o. Test manually if method is correct.",
+          this.allRobotsLength, randomNumberBound));
+      }
+      return Arrays.stream(sequence);
+    }
+    else { return ThreadLocalRandom.current().ints(randomNumberOrigin, randomNumberBound); }
   }
 
   /**
