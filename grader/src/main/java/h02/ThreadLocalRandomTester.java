@@ -1,8 +1,8 @@
 package h02;
 
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
-import java.util.Arrays;
 
 public class ThreadLocalRandomTester {
   private static final InheritableThreadLocal<ThreadLocalRandomTester> factory = new InheritableThreadLocal<>();
@@ -81,8 +81,9 @@ public class ThreadLocalRandomTester {
           this.allRobotsLength, randomNumberBound));
       }
       return Arrays.stream(sequence);
+    } else {
+      return ThreadLocalRandom.current().ints(randomNumberOrigin, randomNumberBound);
     }
-    else { return ThreadLocalRandom.current().ints(randomNumberOrigin, randomNumberBound); }
   }
 
   /**
