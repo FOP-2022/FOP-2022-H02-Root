@@ -81,9 +81,8 @@ public class ThreadLocalRandomTester {
           this.allRobotsLength, randomNumberBound));
       }
       return Arrays.stream(sequence);
-    } else {
-      return ThreadLocalRandom.current().ints(randomNumberOrigin, randomNumberBound);
     }
+    return ThreadLocalRandom.current().ints(randomNumberOrigin, randomNumberBound);
   }
 
   /**
