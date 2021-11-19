@@ -1,6 +1,10 @@
 package h02;
 
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 public class ThreadLocalRandomTester {
   private static final InheritableThreadLocal<ThreadLocalRandomTester> factory = new InheritableThreadLocal<>();
@@ -49,21 +53,35 @@ public class ThreadLocalRandomTester {
     return sequence;
   }
 
+  private <T> T nextInBounds(int lower, int upper, String name, Supplier<T> replaced, BiFunction<Integer, Integer, T> fallback) {
+    if (replaceTester) {
+      if (lower != 0) {
+        throw new IllegalArgumentException(
+          String.format("First parameter of %s must be 0, bust received %o. Test manually if method is correct.",
+            name, lower));
+      }
+      if (upper != allRobotsLength) {
+        throw new IllegalArgumentException(
+          String.format("Second parameter of %s must be allRobots.length (=%o), bust received %o. Test manually if method is " +
+            "correct.", name, allRobotsLength, upper));
+      }
+      return replaced.get();
+    }
+    return fallback.apply(lower, upper);
+  }
+
   /**
    * Replaces {@link ThreadLocalRandom#nextInt(int, int)}
    */
-  public int nextInt(int a, int b) {
-    if (replaceTester) {
-      if (a != 0) {
-        throw new IllegalArgumentException(String.format("First parameter of nextInt must be 0, bust received %o. Test manually if method is correct.", a));
-      }
-      if (b != allRobotsLength) {
-        throw new IllegalArgumentException(String.format("Second parameter of nextInt must be allRobots.length (=%o), bust received %o. Test manually if method is correct.",
-          allRobotsLength, b));
-      }
-      return threadLocalSeq.next();
-    }
-    return ThreadLocalRandom.current().nextInt(a, b);
+  public int nextInt(int lower, int upper) {
+    return nextInBounds(lower, upper, "nextInt(II)", threadLocalSeq::next, ThreadLocalRandom.current()::nextInt);
+  }
+
+  /**
+   * Replaces {@link ThreadLocalRandom#ints(int, int)}
+   */
+  public IntStream ints(int lower, int upper) {
+    return nextInBounds(lower, upper, "ints(II)", () -> Arrays.stream(sequence), ThreadLocalRandom.current()::ints);
   }
 
   /**
