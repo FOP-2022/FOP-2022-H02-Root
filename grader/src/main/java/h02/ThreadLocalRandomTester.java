@@ -57,13 +57,13 @@ public class ThreadLocalRandomTester {
     if (replaceTester) {
       if (lower != 0) {
         throw new IllegalArgumentException(
-          String.format("First parameter of %s must be 0, bust received %o. Test manually if method is correct.",
+          String.format("First parameter of %s must be 0, bust received %o. Test manually.",
             name, lower));
       }
       if (upper != allRobotsLength) {
         throw new IllegalArgumentException(
-          String.format("Second parameter of %s must be allRobots.length (=%o), bust received %o. Test manually if method is " +
-            "correct.", name, allRobotsLength, upper));
+          String.format("Second parameter of %s must be allRobots.length (=%o), but received %o. Test manually." +
+            name, allRobotsLength, upper));
       }
       return replaced.get();
     }
