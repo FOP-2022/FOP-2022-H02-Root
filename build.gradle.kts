@@ -20,10 +20,10 @@ allprojects {
       options.encoding = "UTF-8"
     }
     jar {
-      archiveFileName.set("${rootProject.name}-${project.name}.jar")
+      archiveFileName.set("FOP-2022-H02-${project.name}-${project.version}.jar")
     }
     named<Jar>("sourcesJar") {
-      archiveFileName.set("${rootProject.name}-${project.name}-sources.jar")
+      archiveFileName.set("FOP-2022-H02-${project.name}-${project.version}-sources.jar")
     }
   }
 }
