@@ -3,7 +3,7 @@ plugins {
 }
 allprojects {
   apply(plugin = "java")
-  version = "1.0.1-SNAPSHOT"
+  version = "1.0.1"
   repositories {
     mavenCentral()
   }
